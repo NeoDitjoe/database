@@ -26,7 +26,7 @@ export default function Home() {
       </Head>
       
       <main className= {inter.className}>
-        <h1>Welcome {sessionStorage.getItem('userEmail')}</h1>
+        <h1>Welcome {sessionStorage.getItem('user')}</h1>
 
         <Link href={'page2'}>page2</Link>
 

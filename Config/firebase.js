@@ -26,7 +26,7 @@ export function googleSignIn(e){
   signInWithPopup( auth, googleProvider )
       .then((res) => {
           sessionStorage.setItem("Token", res.user.accessToken);
-          sessionStorage.setItem("userEmail", res.user.displayName);
+          sessionStorage.setItem("user", res.user.displayName);
       })
 }
 
@@ -38,7 +38,7 @@ export function githubSignIn(e){
   signInWithPopup(auth, githubProvider)
       .then((res) => {
           sessionStorage.setItem("Token", res.user.accessToken);
-          sessionStorage.setItem("userEmail", res.user.email[0].toLocaleUpperCase() +  res.user.email.slice(1).split('@')[0]);
+          sessionStorage.setItem("user", res.user.email[0].toLocaleUpperCase() +  res.user.email.slice(1).split('@')[0]);
       })
 }
 
@@ -59,16 +59,18 @@ export default function EmailAndPassword(){
 
   const emailRef = useRef()
   const passwordRef = useRef()
+  const usernameRef = useRef()
 
   function signUp(e) {
     e.preventDefault()
     const emailValue = emailRef.current.value
     const passwordValue = passwordRef.current.value
+    const usernameValue = usernameRef.current.value
 
     createUserWithEmailAndPassword(auth, emailValue, passwordValue)
         .then((res) => {
             sessionStorage.setItem("Token", res.user.accessToken);
-            sessionStorage.setItem("userEmail", res.user.email);
+            sessionStorage.setItem("user", usernameValue);
             alert('welcome ' + res.user.email)
             console.log(res.user)
         })
@@ -79,6 +81,7 @@ export default function EmailAndPassword(){
       formHandler = {signUp}
       emailInput = {emailRef}
       passwordInput = {passwordRef}
+      usernameInput= {usernameRef}
       text = 'Sign up'
 
     />

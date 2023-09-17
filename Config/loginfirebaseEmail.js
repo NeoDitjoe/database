@@ -6,19 +6,21 @@ export default function LoginWithEmailAndPassword(){
 
     const emailRef = useRef()
     const passwordRef = useRef()
+    const usernameRef = useRef()
     const auth = getAuth()
   
     function login(e) {
       e.preventDefault()
       const emailValue = emailRef.current.value
       const passwordValue = passwordRef.current.value
+      const usernameValue = usernameRef.current.value
   
       signInWithEmailAndPassword(auth, emailValue, passwordValue)
           .then((res) => {
               sessionStorage.setItem("Token", res.user.accessToken);
-              sessionStorage.setItem("userEmail", res.user.email);
-              alert('welcome ' + res.user.email)
-              console.log(res.user)
+              sessionStorage.setItem("user", usernameValue);
+              alert('welcome ' + sessionStorage.getItem("user"))
+              console.log(sessionStorage.getItem("user"))
           })
     }
   
@@ -27,6 +29,7 @@ export default function LoginWithEmailAndPassword(){
         formHandler = {login}
         emailInput = {emailRef}
         passwordInput = {passwordRef}
+        usernameInput = {usernameRef}
         text = 'Login'
       />
     )

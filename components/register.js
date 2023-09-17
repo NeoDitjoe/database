@@ -2,10 +2,17 @@ import { useEffect } from "react"
 
 export default function Register(props){
 
-  const { formHandler, emailInput, passwordInput, text } = props
+  const { formHandler, emailInput, passwordInput, text, usernameInput } = props
 
   return (
       <form onSubmit={formHandler}>
+            <input 
+              type="name"
+              name="name"
+              placeholder="username"
+              required
+              ref={usernameInput}
+          />
           <input 
               type="email"
               name="email"
