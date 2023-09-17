@@ -2,7 +2,7 @@ import { useEffect } from "react"
 
 export default function Register(props){
 
-  const { formHandler, emailInput, passwordInput } = props
+  const { formHandler, emailInput, passwordInput, text } = props
 
   return (
       <form onSubmit={formHandler}>
@@ -21,7 +21,7 @@ export default function Register(props){
               required
               ref={passwordInput}
           />
-          <button>Sign up</button>
+          <button>{text}</button>
       </form>
   )
 

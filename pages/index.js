@@ -1,12 +1,21 @@
 import Head from 'next/head'
-import Image from 'next/image'
+import Router, { useRouter } from 'next/router'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+// import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
+import { Logout } from '@/Config/firebase'
+import { useEffect, useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    
+  })
+
   return (
     <>
       <Head>
@@ -15,12 +24,19 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <h1> Home page</h1>
+      
+      <main className= {inter.className}>
+        <h1>Welcome {sessionStorage.getItem('userEmail')}</h1>
 
-        <Link href={'firebase'} >Firebase</Link>
+        <Link href={'page2'}>page2</Link>
+
+        <button onClick={() => {
+          sessionStorage.removeItem("Token")
+          router.push('/')
+          Logout()
+        }}>LogOut</button>
+
       </main>
     </>
   )
 }
-
