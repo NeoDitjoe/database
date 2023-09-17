@@ -1,5 +1,5 @@
 export default function page(){
     return (
-        <h1>User should be logged in</h1>
+        <h1>YOU ARE LOGGED IN</h1>
     )
 }
