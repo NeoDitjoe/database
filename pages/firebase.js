@@ -2,7 +2,7 @@ import Register from "@/components/register"
 import Link from "next/link"
 import { useRef } from "react"
 import { app } from "@/Config/firebase"
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import Router, { useRouter } from "next/router"
 
 export default function firebaseAuth(){
@@ -12,6 +12,8 @@ export default function firebaseAuth(){
     const router  = useRouter()
     
     const auth = getAuth()
+    const googleProvider = new GoogleAuthProvider()
+    const githubProvider = new GithubAuthProvider()
 
     function signUp(e) {
         e.preventDefault()
@@ -25,12 +27,22 @@ export default function firebaseAuth(){
             })
     }
 
-    function formHandler(e){
+    function githubSignIn(e){
         e.preventDefault()
-        const emailValue = emailRef.current.value
-        const passwordValue = passwordRef.current.value
-        
-        console.log([emailValue, passwordValue])
+        signInWithPopup(auth, githubProvider)
+            .then((res) => {
+                router.push('/')
+                console.log(res)
+            })
+    }
+
+    function googleSignIn(e){
+        e.preventDefault()
+        signInWithPopup( auth, googleProvider )
+            .then((res) => {
+                router.push('/')
+                console.log(res)
+            })
     }
 
     return (
@@ -40,6 +52,9 @@ export default function firebaseAuth(){
                 emailInput = {emailRef}
                 passwordInput = {passwordRef}
             />
+
+            <button onClick={githubSignIn}>Github</button>
+            <button onClick={googleSignIn}>Google</button>
             
             <Link href={'/'} >Home</Link>
         
